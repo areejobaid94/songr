@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<p>Hello</p>
+<div th:each = "album : ${albums}">
+    <p th:text="${album.title}"></p>
+    <p th:text="${album.artist}"></p>
+    <p th:text="${album.songCount}"></p>
+    <p th:text="${album.length}"></p>
+    <img th:src="${album.imageUrl}"></img>
+
+</div>
+</body>
+</html>
