@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../style.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>fact</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-
 <div class="header">
     <a href="/" class="logo" style="width: 103px;"><img style="width: 100px;" src="https://www.dariawan.com/media/images/tech-spring-security.width-1024.png"></a>
     <div class="header-right">
@@ -18,21 +17,13 @@
     </div>
 </div>
 
-<h2 class="headers" th:text="${word}"></h2>
-<form class="form" action="/capitalize" id="form"  method="get">
-    <h3>Capitalize any words</h3>
-    <input type="text" th:name="word" id = "word">
+<h2 class="headers" th:text="${fact}"></h2>
+<form class="form" action="/fact" th:action="@{/fact}"  method="get">
+    <h3>fact about number</h3>
+    <input type="number" th:name="num">
     <p>
         <input type="submit" value="Submit" class="button"/>
     </p>
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script>
-$("#word").change(function(e){
-   $('#form').attr('action', '/capitalize/'+$(this).val());
-});
-</script>
-
 </body>
-
 </html>

@@ -1,19 +1,34 @@
 package com.example.songr;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.URL;
 import java.util.ArrayList;
 
+
 @Controller
+//Stretch Goals
 public class SongrController {
     @GetMapping("/hello")
-    public String string(){
+    public String string(@RequestParam(name="name", required=false, defaultValue="World") String name,Model m){
+        m.addAttribute("name", name.toUpperCase());
         return "HelloWord";
+    }
+
+    @GetMapping("/")
+    public String index(){
+        return "index";
     }
 
     @GetMapping("/capitalize/{word}")
@@ -32,4 +47,30 @@ public class SongrController {
         return "albums.html";
     }
 
+    //Stretch Goals
+    @PostMapping("/hello")
+    public String postHello(@RequestParam(name="name", required=false, defaultValue="World") String name,Model m){
+        m.addAttribute("name", name.toUpperCase());
+        return "HelloWord";
+    }
+
+    //Stretch Goals
+    @GetMapping("/fact")
+    public String postFact(@RequestParam(name="num", required=false, defaultValue="1") int num,Model m){
+        try {
+            URL url = new URL("http://numbersapi.com/"+ num);
+            m.addAttribute("fact",Service.getJsonFromAPI(url));
+        }catch (Exception ex){
+            System.out.println(ex);
+        }
+        return "fact";
+    }
+
+    //Stretch Goals
+    @GetMapping("/getBaseUrl")
+    public ResponseEntity<String> getBaseUrl(@RequestHeader HttpHeaders headers) {
+        InetSocketAddress host = headers.getHost();
+        String url = "http://" + host.getHostName() + ":" + host.getPort();
+        return new ResponseEntity<String>(String.format("Base URL = %s", url), HttpStatus.OK);
+    }
 }
