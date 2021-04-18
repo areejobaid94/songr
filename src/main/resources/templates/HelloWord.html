@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<link >
+<head>
+    <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="header">
+    <a href="/" class="logo" style="width: 103px;"><img style="width: 100px;" src="https://www.dariawan.com/media/images/tech-spring-security.width-1024.png"></a>
+    <div class="header-right">
+        <a class="active" href="/">Home</a>
+        <a href="/hello" >Hello Word</a>
+        <a href="/albums">Albums</a>
+        <a href="/capitalize/Hello">Capitalize Words</capitalize></a>
+        <a href="/fact?num=1">Number Fact</a>
+    </div>
+</div>
+
+<h2 class="headers" th:text="'Hello, ' + ${name} + '!'"  ></h2>
+    <form class="form" action="/hello" th:action="@{/hello}"  method="get">
+        <h3>Say hello For Name</h3>
+        <input type="text" th:name="name">
+        <p>
+            <input type="submit" value="Submit" class="button"/>
+        </p>
+    </form>
+</body>
+</html>

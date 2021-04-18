@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="header">
+    <a href="/" class="logo" style="width: 103px;"><img style="width: 100px;" src="https://www.dariawan.com/media/images/tech-spring-security.width-1024.png"></a>
+    <div class="header-right">
+        <a class="active" href="/">Home</a>
+        <a href="/hello" >Hello Word</a>
+        <a href="/albums">Albums</a>
+        <a href="/capitalize/Hello">Capitalize Words</capitalize></a>
+        <a href="/fact?num=1">Number Fact</a>
+    </div>
+</div>
+<h2 class="headers">All Albums</h2>
+<div class="row" >
+    <div class="column" th:each = "album : ${albums}" >
+        <div class="card">
+        <img th:src="${album.imageUrl}"  style="width:100%" class="img"/>
+            <h4>Title: </h4><p th:text="${album.title}"></p>
+            <h4>Artist: </h4><p th:text="${album.artist}"></p>
+         <h4>Song Count: </h4><p th:text="${album.songCount}"></p>
+            <h4>Length: </h4><p th:text="${album.length}"></p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
