@@ -19,12 +19,12 @@
 </div>
 
 <h2 class="headers" th:text="'Hello, ' + ${name} + '!'"  ></h2>
-    <form class="form" action="/hello" th:action="@{/hello}"  method="get">
-        <h3>Say hello For Name</h3>
-        <input type="text" th:name="name">
-        <p>
-            <input type="submit" value="Submit" class="button"/>
-        </p>
-    </form>
+<form class="form" action="/hello" th:action="@{/hello}"  method="get">
+    <h3>Say hello For Name</h3>
+    <input type="text" th:name="name">
+    <p>
+        <input type="submit" value="Submit" class="button"/>
+    </p>
+</form>
 </body>
 </html>

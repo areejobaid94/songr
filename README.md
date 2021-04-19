@@ -12,3 +12,5 @@
 
 
 ### You can run the test by: ./gradlew test 
+
+### You can run the app by: ./gradlew bootRun
