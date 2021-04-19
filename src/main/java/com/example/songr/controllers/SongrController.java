@@ -1,27 +1,30 @@
-package com.example.songr;
+package com.example.songr.controllers;
 
+import com.example.songr.models.Album;
+import com.example.songr.repositories.AlbumsRepository;
+import com.example.songr.services.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.URL;
 import java.util.ArrayList;
 
-
 @Controller
 //Stretch Goals
 public class SongrController {
+
+    @Autowired
+    AlbumsRepository albumsRepository;
+
     @GetMapping("/hello")
-    public String string(@RequestParam(name="name", required=false, defaultValue="World") String name,Model m){
+    public String string(@RequestParam(name="name", required=false, defaultValue="World") String name, Model m){
         m.addAttribute("name", name.toUpperCase());
         return "HelloWord";
     }
@@ -39,11 +42,7 @@ public class SongrController {
 
     @GetMapping("/albums")
     public String albums(Model m) {
-        ArrayList<Album> albums = new ArrayList<Album>();
-        albums.add(new Album("anything","any one","https://i.ytimg.com/vi/mCPQspoRMxo/maxresdefault.jpg",10,150.0));
-        albums.add(new Album("anything2","any one","https://www.iqraa.news/wp-content/uploads/2021/03/%D8%AA%D8%B1%D8%AF%D8%AF-%D9%82%D9%86%D8%A7%D8%A9-%D9%83%D8%B1%D8%A7%D9%85%D9%8A%D8%B4-%D8%B9%D9%84%D9%8A-%D9%86%D8%A7%D9%8A%D9%84-%D8%B3%D8%A7%D8%AA-%D9%88%D8%B9%D8%B1%D8%A8-%D8%B3%D8%A7%D8%AA-2021-1-1.jpg",20,250.0));
-        albums.add(new Album("anything3","any one","https://i.ytimg.com/vi/ek68Del9bfw/maxresdefault.jpg",30,250.0));
-        m.addAttribute("albums", albums);
+        m.addAttribute("albums" ,albumsRepository.findAll());
         return "albums.html";
     }
 
@@ -59,7 +58,7 @@ public class SongrController {
     public String postFact(@RequestParam(name="num", required=false, defaultValue="1") int num,Model m){
         try {
             URL url = new URL("http://numbersapi.com/"+ num);
-            m.addAttribute("fact",Service.getJsonFromAPI(url));
+            m.addAttribute("fact", Service.getJsonFromAPI(url));
         }catch (Exception ex){
             System.out.println(ex);
         }
@@ -72,5 +71,22 @@ public class SongrController {
         InetSocketAddress host = headers.getHost();
         String url = "http://" + host.getHostName() + ":" + host.getPort();
         return new ResponseEntity<String>(String.format("Base URL = %s", url), HttpStatus.OK);
+    }
+
+    @GetMapping("/addStudent")
+    public String getAddStudentView(){
+        return "addStudent.html";
+    }
+
+    @PostMapping("/album")
+    public RedirectView addStudent(@RequestParam(value = "title") String title ,
+                                   @RequestParam(value= "artist") String artist,
+                                   @RequestParam(value="imageUrl") String imageUrl,
+                                   @RequestParam(value="songCount") int songCount,
+                                   @RequestParam(value="length") Double length){
+
+        Album album = new Album(title,artist,imageUrl,songCount,length);
+        albumsRepository.save(album);
+        return  new RedirectView("/albums");
     }
 }

@@ -1,6 +1,6 @@
 * {box-sizing: border-box;}
 
-body { 
+body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   text-align:center;
@@ -18,7 +18,7 @@ body {
   text-align: center;
   padding: 10px;
   text-decoration: none;
-  font-size: 18px; 
+  font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
 }
@@ -31,7 +31,25 @@ form{
 margin:auto;
 text-align:center;
 }
-
+.formB{
+    width: 30%;
+    margin: auto;
+    padding-top: 35px;
+    padding-bottom: 75px;
+    box-shadow: 4px 2px 3px 4px grey;
+    margin-top: 100px;
+}
+input {
+    background-color: transparent;
+    color: black;
+    outline: none;
+    outline-style: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #eeeeee 1px;
+    padding: 0px 10px;
+}
 .form{
     width: 30%;
     margin: auto;
@@ -39,6 +57,14 @@ text-align:center;
     box-shadow: 4px 2px 3px 4px grey;
     margin-top: 100px;
 }
+
+label{
+float:left;
+padding-left: 31px;
+margin-bottom: 30px;
+}
+
+
 .header a.logo {
   font-size: 25px;
   font-weight: bold;
@@ -85,7 +111,7 @@ background-color:lightgreen;
     display: block;
     text-align: left;
   }
-  
+
   .header-right {
     float: none;
   }
@@ -124,6 +150,8 @@ body {
 margin-top:70px;
 margin-bottom:20px;
 }
+
+
 
 /* Responsive columns */
 @media screen and (max-width: 600px) {
