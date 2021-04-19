@@ -43,6 +43,7 @@ public class SongrController {
     @GetMapping("/albums")
     public String albums(Model m) {
         m.addAttribute("albums" ,albumsRepository.findAll());
+        System.out.println(albumsRepository.findAll());
         return "albums.html";
     }
 
@@ -89,4 +90,29 @@ public class SongrController {
         albumsRepository.save(album);
         return  new RedirectView("/albums");
     }
+
+    @RequestMapping(value = "/delete_album", method = RequestMethod.GET)
+    public RedirectView handleDeleteUser(@RequestParam(value = "id") Integer id) {
+        albumsRepository.deleteById(id);
+        return new RedirectView("/albums");
+    }
+
+    @PostMapping("/album-update")
+    public RedirectView updateStudent(@RequestParam(value = "title") String title ,
+                                   @RequestParam(value= "artist") String artist,
+                                   @RequestParam(value="imageUrl") String imageUrl,
+                                   @RequestParam(value="songCount") int songCount,
+                                   @RequestParam(value = "id" ) Integer id,
+                                   @RequestParam(value="length") Double length){
+
+        Album album = albumsRepository.findById(id).get();
+        album.setArtist(artist);
+        album.setTitle(title);
+        album.setImageUrl(imageUrl);
+        album.setSongCount(songCount);
+        album.setLength(length);
+        albumsRepository.save(album);
+        return  new RedirectView("/albums");
+    }
+
 }

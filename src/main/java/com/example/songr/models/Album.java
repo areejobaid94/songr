@@ -10,6 +10,14 @@ public class Album {
     private int songCount;
     private Double length;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -65,4 +73,15 @@ public class Album {
         this.length = length;
     }
 
+    @Override
+    public String toString() {
+        return "Album{" +
+                "title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", songCount=" + songCount +
+                ", length=" + length +
+                ", id=" + id +
+                '}';
+    }
 }
