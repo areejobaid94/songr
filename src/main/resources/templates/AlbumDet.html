@@ -17,10 +17,9 @@
         <a href="/fact?num=1">Number Fact</a>
     </div>
 </div>
-<div>
-
+<div style="display:flex;width:95%">
 <div class="row" >
-        <div class="formB">
+        <div class="column" style="width: 60%;">
                 <img th:src="${album.imageUrl}"  style="width:100%" class="img"/>
                 <h4>Title: </h4><p th:text="${album.title}"></p>
                 <h4>Artist: </h4><p th:text="${album.artist}"></p>
@@ -34,7 +33,7 @@
         </div>
 </div>
 
-<form action="/song" class="formB"  method="post">
+<form action="/song" class="column"  style="width: 60%;" method="post">
     <h3>Add Song</h3>
     <label>
         Title:
@@ -61,26 +60,26 @@
 <div class="row" >
     <div class="column" th:each = "song : ${album.songs}" >
         <div class="card">
-            <form style="width= 100%" action="/song-update" id="update" hidden  method="get">
-                <h3>Update Album</h3>
+            <form style="width= 100%" action="/song-update" class="update" hidden  method="post">
+                <h3>Update Song</h3>
                 <label>
                     Title:
-                    <input type="text" th:name="title">
+                    <input type="text" th:name="title" th:value="${song.title}">
                 </label>
                 <br>
                 <label>
                     Length:
-                    <input type="number" th:name="length" step="any">
+                    <input type="number" th:name="length" step="any" th:value="${song.length}">
                 </label>
                 <br>
                 <label>
                     Track Number:
-                    <input type="number" th:name="trackNumber" step="any">
+                    <input type="number" th:name="trackNumber" step="any" th:value="${song.trackNumber}">
                 </label>
                 <br>
                 <label>
                     Album Id:
-                    <input type="number" th:name="albumId">
+                    <input type="number" th:name="albumId" th:value="${song.album.id}">
                 </label>
                 <br>
 
@@ -93,15 +92,15 @@
                     <input type="submit" value="Submit" class="button"/>
                 </p>
             </form>
-            <div hidden id = "back">
+            <div hidden class="back">
                 <input type="submit" value="Back to data"  onclick="toggle()" class="button" />
             </div>
-            <div id="card">
+            <div class="carda">
 
                 <h4>Title: </h4><p th:text="${song.title}"></p>
                 <h4>Track Number: </h4><p th:text="${song.trackNumber}"></p>
                 <h4>Length: </h4><p th:text="${song.length}"></p>
-                <form action="/delete_album"  method="get">
+                <form action="/delete_song"  method="get">
                     <input th:value="${song.id}" type="text" th:name="id" hidden/>
                     <input type="submit" value="Delete" class="button"/>
                 </form>
@@ -111,6 +110,15 @@
     </div>
 
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+function toggle(){
+$(".update").toggle();
+$(".carda").toggle();
+$(".back").toggle();
+}
+
+</script>
 
 </body>
 </html>

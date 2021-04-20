@@ -49,6 +49,7 @@ public class AlbumController {
                                       @RequestParam(value = "id" ) Integer id,
                                       @RequestParam(value="length") Double length){
 
+        System.out.println("helllloooooo");
         Album album = albumsRepository.findById(id).get();
         album.setArtist(artist);
         album.setTitle(title);
@@ -61,6 +62,7 @@ public class AlbumController {
 
     @GetMapping("/albumSongs/{id}")
     public String getStudentById(@PathVariable(value="id") Integer id,Model m){
+
         m.addAttribute("album",albumsRepository.findById(id).get());
         return "AlbumDet";
     }
