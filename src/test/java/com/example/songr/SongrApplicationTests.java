@@ -15,7 +15,7 @@ class SongrApplicationTests {
 	@Autowired
 	MockMvc mockMvc;
 	@Test void contextLoads() {
-		
+
 	}
 
 }
