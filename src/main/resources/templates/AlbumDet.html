@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="header">
+    <a href="/" class="logo" style="width: 103px;"><img style="width: 100px;" src="https://www.dariawan.com/media/images/tech-spring-security.width-1024.png"></a>
+    <div class="header-right">
+        <a class="active" href="/">Home</a>
+        <a href="/hello" >Hello Word</a>
+        <a href="/albums">Albums</a>
+        <a href="/songs">Songs</a>
+        <a href="/capitalize/Hello">Capitalize Words</capitalize></a>
+        <a href="/fact?num=1">Number Fact</a>
+    </div>
+</div>
+<div style="display:flex;width:95%">
+<div class="row" >
+        <div class="column" style="width: 60%;">
+                <img th:src="${album.imageUrl}"  style="width:100%" class="img"/>
+                <h4>Title: </h4><p th:text="${album.title}"></p>
+                <h4>Artist: </h4><p th:text="${album.artist}"></p>
+                <h4>Song Count: </h4><p th:text="${album.songCount}"></p>
+                <h4>Length: </h4><p th:text="${album.length}"></p>
+                <form action="/delete_album"  method="get">
+                    <input th:value="${album.id}" type="text" th:name="id" hidden/>
+                    <input type="submit" value="Delete" class="button"/>
+                </form>
+                <input type="submit" value="Update Album" onclick="toggle()" class="button"/>
+        </div>
+</div>
+
+<form action="/song" class="column"  style="width: 60%;" method="post">
+    <h3>Add Song</h3>
+    <label>
+        Title:
+        <input type="text" th:name="title" id = "title">
+    </label>
+    <br>
+    <label>
+        Track Number:
+        <input type="number" th:name="trackNumber" id = "trackNumber">
+    </label>
+    <br>
+    <label>
+        Length:
+        <input type="number" th:name="length" id = "length" step="any">
+    </label>
+    <br>
+    <input type="number" th:name="albumId" id = "albumId" th:value="${album.id}" hidden>
+    <br>
+    <input type="submit" value="Submit" class="button"/>
+</form>
+</div>
+
+<h2 class="headers">All Songs</h2>
+<div class="row" >
+    <div class="column" th:each = "song : ${album.songs}" >
+        <div class="card">
+            <form style="width= 100%" action="/song-update" class="update" hidden  method="post">
+                <h3>Update Song</h3>
+                <label>
+                    Title:
+                    <input type="text" th:name="title" th:value="${song.title}">
+                </label>
+                <br>
+                <label>
+                    Length:
+                    <input type="number" th:name="length" step="any" th:value="${song.length}">
+                </label>
+                <br>
+                <label>
+                    Track Number:
+                    <input type="number" th:name="trackNumber" step="any" th:value="${song.trackNumber}">
+                </label>
+                <br>
+                <label>
+                    Album Id:
+                    <input type="number" th:name="albumId" th:value="${song.album.id}">
+                </label>
+                <br>
+
+                <input th:value="${song.id}" type="text" th:name="id" hidden/>
+
+                <br>
+                <br>
+
+                <p>
+                    <input type="submit" value="Submit" class="button"/>
+                </p>
+            </form>
+            <div hidden class="back">
+                <input type="submit" value="Back to data"  onclick="toggle()" class="button" />
+            </div>
+            <div class="carda">
+
+                <h4>Title: </h4><p th:text="${song.title}"></p>
+                <h4>Track Number: </h4><p th:text="${song.trackNumber}"></p>
+                <h4>Length: </h4><p th:text="${song.length}"></p>
+                <form action="/delete_song"  method="get">
+                    <input th:value="${song.id}" type="text" th:name="id" hidden/>
+                    <input type="submit" value="Delete" class="button"/>
+                </form>
+                <input type="submit" value="Update Song" onclick="toggle()" class="button"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+function toggle(){
+$(".update").toggle();
+$(".carda").toggle();
+$(".back").toggle();
+}
+
+</script>
+
+</body>
+</html>
