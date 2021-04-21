@@ -29,11 +29,7 @@ public class SongrApplicationTests {
 	public void testHelloPage() throws Exception {
 		this.mockMvc.perform(get("/hello")).andDo(print()).andExpect(status().isOk());
 	}
-
-	@Test
-	public void testBaseUrl() throws Exception {
-		this.mockMvc.perform(get("/getBaseUrl")).andDo(print()).andExpect(status().isOk());
-	}
+	
 
 }
 
