@@ -63,10 +63,4 @@ public class SongrController {
         return new ResponseEntity<String>(String.format("Base URL = %s", url), HttpStatus.OK);
     }
 
-    @GetMapping("/addStudent")
-    public String getAddStudentView(){
-        return "addStudent.html";
-    }
-
-
 }
