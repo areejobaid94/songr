@@ -29,7 +29,42 @@ public class SongrApplicationTests {
 	public void testHelloPage() throws Exception {
 		this.mockMvc.perform(get("/hello")).andDo(print()).andExpect(status().isOk());
 	}
-	
+
+	@Test
+	public void testHelloPageResultWithArg() throws Exception {
+        this.mockMvc.perform(get("/hello?name=Areej")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("<h2 class=\"headers\"  >Hello, AREEJ!</h2>")));
+    }
+
+    @Test
+    public void testHelloPageResultWithoutArg() throws Exception {
+        this.mockMvc.perform(get("/hello")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("<h2 class=\"headers\"  >Hello, WORLD!</h2>")));
+    }
+
+	@Test
+	public void testFactRoute() throws Exception {
+		this.mockMvc.perform(get("/fact?num=100")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("<h3>fact about number</h3>")));
+	}
+
+	@Test
+	public void testCapitalizeRoute() throws Exception {
+		this.mockMvc.perform(get("/capitalize/Areej")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("<h2 class=\"headers\">AREEJ</h2>")));
+	}
+	@Test
+	public void testAlbumsRoute() throws Exception {
+		this.mockMvc.perform(get("/albums")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("<h3>Add Album</h3>")));
+	}
+
+	@Test
+	public void testSongsRoute() throws Exception {
+		this.mockMvc.perform(get("/songs")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("<h3>Add Song</h3>")));
+	}
+
 
 }
 
